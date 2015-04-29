@@ -64,6 +64,16 @@ public abstract class AbstractClinicServiceTests {
         owners = this.clinicService.findOwnerByLastName("Daviss");
         assertThat(owners.isEmpty());
     }
+    
+    /*@Test
+    public void shouldFindOwnersByLastNameTest() {
+    	System.out.println("In FindByOwners test");
+        Collection<Owner> owners = this.clinicService.findOwnerByLastName("%' AND first_name='");
+        assertThat(true);
+
+        owners = this.clinicService.findOwnerByLastName("Daviss");
+        assertThat(true);
+    }*/
 
     @Test
     public void shouldFindSingleOwnerWithPet() {
