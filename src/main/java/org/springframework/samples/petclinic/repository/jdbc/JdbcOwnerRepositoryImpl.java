@@ -15,6 +15,12 @@
  */
 package org.springframework.samples.petclinic.repository.jdbc;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -79,15 +85,65 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
      */
     @Override
     public Collection<Owner> findByLastName(String lastName) throws DataAccessException {
-        Map<String, Object> params = new HashMap<String, Object>();
+    	System.out.println("In findbylastname");
+    	List<Owner> owners = new ArrayList<Owner>();
+    	//Uncomment to remove changes
+    	/*Map<String, Object> params = new HashMap<String, Object>();
         params.put("lastName", lastName + "%");
-        List<Owner> owners = this.namedParameterJdbcTemplate.query(
+        owners = this.namedParameterJdbcTemplate.query(
                 "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name like :lastName",
                 params,
                 BeanPropertyRowMapper.newInstance(Owner.class)
-        );
+        );*/
+    	//Stop uncommenting here
+        
+        
+        
+        //Comment out following to remove changes
+        try {
+        	Connection conn = null;
+        	Statement st = null;
+        	ResultSet rs = null;
+        	String query = "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name like '"+lastName+"%'";
+        	System.out.println(query);
+			Class.forName("org.hsqldb.jdbcDriver");
+			conn = DriverManager.getConnection("jdbc:hsqldb:mem:petclinic", "sa", "");
+			System.out.println("Connection valid: "+conn.isValid(5));
+			st = conn.createStatement();
+			rs = st.executeQuery(query);
+			int x = 1;
+			while(rs.next()){
+				System.out.println("Pass #: " + x);
+				Owner owner = new Owner();
+				owner.setId(Integer.valueOf(rs.getInt("id")));
+				owner.setFirstName(rs.getString("first_name"));
+				owner.setLastName(rs.getString("last_name"));
+				owner.setAddress(rs.getString("address"));
+				owner.setCity(rs.getString("city"));
+				owner.setTelephone(rs.getString("telephone"));
+				
+				owners.add(owner);
+				x++;
+			}
+			System.out.println("Closing connection");
+			st.close();
+			conn.close();
+			
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        //Stop commenting out here
+        
         loadOwnersPetsAndVisits(owners);
+        
         return owners;
+        
+        
     }
 
     /**
