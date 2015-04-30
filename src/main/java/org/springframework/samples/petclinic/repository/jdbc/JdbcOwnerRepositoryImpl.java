@@ -88,19 +88,25 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
     	System.out.println("In findbylastname");
     	List<Owner> owners = new ArrayList<Owner>();
     	//Uncomment to remove changes
-    	/*Map<String, Object> params = new HashMap<String, Object>();
+    	Map<String, Object> params = new HashMap<String, Object>();
         params.put("lastName", lastName + "%");
-        owners = this.namedParameterJdbcTemplate.query(
+        /*owners = this.namedParameterJdbcTemplate.query(
                 "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name like :lastName",
                 params,
                 BeanPropertyRowMapper.newInstance(Owner.class)
         );*/
+        owners = this.namedParameterJdbcTemplate.query(
+                "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name = '"+lastName+"'",
+                params,
+                BeanPropertyRowMapper.newInstance(Owner.class)
+        );
     	//Stop uncommenting here
         
         
         
         //Comment out following to remove changes
-        try {
+        /*
+    	try {
         	Connection conn = null;
         	Statement st = null;
         	ResultSet rs = null;
@@ -138,6 +144,7 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
         //Stop commenting out here
         
         loadOwnersPetsAndVisits(owners);
