@@ -45,7 +45,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class JpaOwnerRepositoryImpl implements OwnerRepository {
 	//FLIP THIS VALUE TO DEMO SQL INJECTION ERRORS
-	private boolean sqlInjectionTest = true;
+	private boolean sqlInjectionTest = false;
 	
     @PersistenceContext
     private EntityManager em;
