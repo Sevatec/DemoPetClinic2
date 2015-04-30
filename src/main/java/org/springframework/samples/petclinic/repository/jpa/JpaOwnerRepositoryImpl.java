@@ -71,7 +71,8 @@ public class JpaOwnerRepositoryImpl implements OwnerRepository {
         	Connection conn = null;
         	Statement st = null;
         	ResultSet rs = null;
-        	String query = "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name like '"+lastName+"%'";
+        	//String query = "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name like '"+lastName+"%'";
+        	String query = "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name = '"+lastName+"'";
         	System.out.println(query);
 			Class.forName("org.hsqldb.jdbcDriver");
 			conn = DriverManager.getConnection("jdbc:hsqldb:mem:petclinic", "sa", "");
