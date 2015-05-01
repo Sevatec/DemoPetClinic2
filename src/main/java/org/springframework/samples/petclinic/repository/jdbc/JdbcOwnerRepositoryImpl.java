@@ -58,7 +58,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class JdbcOwnerRepositoryImpl implements OwnerRepository {
 	//FLIP THIS VALUE TO DEMO SQL INJECTION ERRORS
-	private boolean sqlInjectionTest = true;
+	private boolean sqlInjectionTest = false;
 
     private VisitRepository visitRepository;
 
