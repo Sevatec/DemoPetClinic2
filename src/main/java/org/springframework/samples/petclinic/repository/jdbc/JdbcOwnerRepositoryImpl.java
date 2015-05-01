@@ -92,13 +92,13 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
     	Map<String, Object> params = new HashMap<String, Object>();
         params.put("lastName", lastName + "%");
         if(!sqlInjectionTest){
-	        /*owners = this.namedParameterJdbcTemplate.query(
+	        owners = this.namedParameterJdbcTemplate.query(
 	                "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name like :lastName",
 	                params,
 	                BeanPropertyRowMapper.newInstance(Owner.class)
-	        );*/
+	        );
 //Comment out to prevent SQL injection
-	        
+	       /* 
 	    	try {
 	        	Connection conn = null;
 	        	Statement st = null;
@@ -137,7 +137,7 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+			*/
 	        //Stop commenting out here
         	
         } else {

@@ -63,12 +63,12 @@ public class JpaOwnerRepositoryImpl implements OwnerRepository {
         // using 'join fetch' because a single query should load both owners and pets
         // using 'left join fetch' because it might happen that an owner does not have pets yet
         Query query;
-        Collection<Owner> owners = new ArrayList<Owner>();
+        //Collection<Owner> owners = new ArrayList<Owner>();
         if(!sqlInjectionTest){
-	    	//query = this.em.createQuery("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName LIKE :lastName");
-	        //query.setParameter("lastName", lastName + "%");
+	    	query = this.em.createQuery("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName LIKE :lastName");
+	        query.setParameter("lastName", lastName + "%");
         	//Comment out following to remove changes
-            try {
+            /*try {
             	Connection conn = null;
             	Statement st = null;
             	ResultSet rs = null;
@@ -107,7 +107,7 @@ public class JpaOwnerRepositoryImpl implements OwnerRepository {
     			e.printStackTrace();
     		}
              return owners;
-             
+             */
             //Stop commenting out here
         } else {
         	query = this.em.createQuery("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName = '"+lastName+"'");
