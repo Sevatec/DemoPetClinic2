@@ -63,15 +63,59 @@ public class JpaOwnerRepositoryImpl implements OwnerRepository {
         // using 'join fetch' because a single query should load both owners and pets
         // using 'left join fetch' because it might happen that an owner does not have pets yet
         Query query;
-       // if(!sqlInjectionTest){
-	    	query = this.em.createQuery("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName LIKE :lastName");
-	        query.setParameter("lastName", lastName + "%");
-        /*} else {
+        Collection<Owner> owners = new ArrayList<Owner>();
+        if(!sqlInjectionTest){
+	    	//query = this.em.createQuery("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName LIKE :lastName");
+	        //query.setParameter("lastName", lastName + "%");
+        	//Comment out following to remove changes
+            try {
+            	Connection conn = null;
+            	Statement st = null;
+            	ResultSet rs = null;
+            	//String query = "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name like '"+lastName+"%'";
+            	String queryString = "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name = '"+lastName+"'";
+            	System.out.println(queryString);
+    			Class.forName("org.hsqldb.jdbcDriver");
+    			conn = DriverManager.getConnection("jdbc:hsqldb:mem:petclinic", "sa", "");
+    			System.out.println("Connection valid: "+conn.isValid(5));
+    			st = conn.createStatement();
+    			rs = st.executeQuery(queryString);
+    			int x = 1;
+    			while(rs.next()){
+    				System.out.println("Pass #: " + x);
+    				Owner owner = new Owner();
+    				owner.setId(Integer.valueOf(rs.getInt("id")));
+    				owner.setFirstName(rs.getString("first_name"));
+    				owner.setLastName(rs.getString("last_name"));
+    				owner.setAddress(rs.getString("address"));
+    				owner.setCity(rs.getString("city"));
+    				owner.setTelephone(rs.getString("telephone"));
+    				
+    				owners.add(owner);
+    				x++;
+    			}
+    			System.out.println("Closing connection");
+    			st.close();
+    			conn.close();
+    			
+    			
+    		} catch (ClassNotFoundException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+             return owners;
+             
+            //Stop commenting out here
+        } else {
         	query = this.em.createQuery("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName = '"+lastName+"'");
-        }*/
+        }
         return query.getResultList();
     }
-
+    
+    	
     @Override
     public Owner findById(int id) {
         // using 'join fetch' because a single query should load both owners and pets
