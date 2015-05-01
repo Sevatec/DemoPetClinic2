@@ -97,49 +97,6 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
 	                params,
 	                BeanPropertyRowMapper.newInstance(Owner.class)
 	        );
-//Comment out to prevent SQL injection
-	       /* 
-	    	try {
-	        	Connection conn = null;
-	        	Statement st = null;
-	        	ResultSet rs = null;
-	        	//String query = "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name like '"+lastName+"%'";
-	        	String query = "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name = '"+lastName+"'";
-	        	System.out.println(query);
-				Class.forName("org.hsqldb.jdbcDriver");
-				conn = DriverManager.getConnection("jdbc:hsqldb:mem:petclinic", "sa", "");
-				System.out.println("Connection valid: "+conn.isValid(5));
-				st = conn.createStatement();
-				rs = st.executeQuery(query);
-				int x = 1;
-				while(rs.next()){
-					System.out.println("Pass #: " + x);
-					Owner owner = new Owner();
-					owner.setId(Integer.valueOf(rs.getInt("id")));
-					owner.setFirstName(rs.getString("first_name"));
-					owner.setLastName(rs.getString("last_name"));
-					owner.setAddress(rs.getString("address"));
-					owner.setCity(rs.getString("city"));
-					owner.setTelephone(rs.getString("telephone"));
-					
-					owners.add(owner);
-					x++;
-				}
-				System.out.println("Closing connection");
-				st.close();
-				conn.close();
-				
-				
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			*/
-	        //Stop commenting out here
-        	
         } else {
 	        owners = this.namedParameterJdbcTemplate.query(
 	                "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name = '"+lastName+"'",
@@ -147,8 +104,6 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
 	                BeanPropertyRowMapper.newInstance(Owner.class)
 	        );
         }
-	        
-	      
         
         loadOwnersPetsAndVisits(owners);
         
