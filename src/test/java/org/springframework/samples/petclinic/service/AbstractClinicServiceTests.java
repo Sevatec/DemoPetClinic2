@@ -63,6 +63,9 @@ public abstract class AbstractClinicServiceTests {
 
         owners = this.clinicService.findOwnerByLastName("Daviss");
         assertThat(owners.isEmpty());
+        
+        //Should cause unit test failure
+        assertThat(false);
     }
     
     /*@Test
