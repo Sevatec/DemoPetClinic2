@@ -64,7 +64,9 @@ public abstract class AbstractClinicServiceTests {
 
         owners = this.clinicService.findOwnerByLastName("Daviss");
         assertThat(owners.isEmpty());
-        fail("Intentional failure");
+        
+        //Comment fail line to remove intentional failure
+        //fail("Intentional failure");
     }
     
     /*@Test
