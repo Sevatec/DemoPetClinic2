@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 import java.util.Collection;
 
@@ -63,9 +64,7 @@ public abstract class AbstractClinicServiceTests {
 
         owners = this.clinicService.findOwnerByLastName("Daviss");
         assertThat(owners.isEmpty());
-        
-        //Should cause unit test failure
-        assertThat(false);
+        fail("Intentional failure");
     }
     
     /*@Test
