@@ -66,7 +66,7 @@ public abstract class AbstractClinicServiceTests {
         assertThat(owners.isEmpty());
         
         //Comment fail line to remove intentional failure
-        //fail("Intentional failure");
+        fail("Intentional failure");
     }
     
     /*@Test
