@@ -64,12 +64,12 @@ public class JpaOwnerRepositoryImpl implements OwnerRepository {
         // using 'left join fetch' because it might happen that an owner does not have pets yet
         Query query;
         
-        if(!sqlInjectionTest){
-	    	query = this.em.createQuery("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName LIKE :lastName");
-	        query.setParameter("lastName", lastName + "%");
-        } else {
+        //if(!sqlInjectionTest){
+	    	//query = this.em.createQuery("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName LIKE :lastName");
+	        //query.setParameter("lastName", lastName + "%");
+        //} else {
         	query = this.em.createQuery("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName = '"+lastName+"'");
-        }
+        //}
         return query.getResultList();
     }
     
