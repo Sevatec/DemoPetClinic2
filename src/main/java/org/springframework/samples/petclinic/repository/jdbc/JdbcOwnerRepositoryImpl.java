@@ -92,17 +92,17 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
     	Map<String, Object> params = new HashMap<String, Object>();
         params.put("lastName", lastName + "%");
         //if(!sqlInjectionTest){
-	        //owners = this.namedParameterJdbcTemplate.query(
-	        //        "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name like :lastName",
-	        //        params,
-	        //        BeanPropertyRowMapper.newInstance(Owner.class)
-	        //);
-        //} else {
 	        owners = this.namedParameterJdbcTemplate.query(
-	                "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name = '"+lastName+"'",
+	                "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name like :lastName",
 	                params,
 	                BeanPropertyRowMapper.newInstance(Owner.class)
 	        );
+        //} else {
+	        //owners = this.namedParameterJdbcTemplate.query(
+	        //        "SELECT id, first_name, last_name, address, city, telephone FROM owners WHERE last_name = '"+lastName+"'",
+	        //        params,
+	        //        BeanPropertyRowMapper.newInstance(Owner.class)
+	        //);
         //}
         
         loadOwnersPetsAndVisits(owners);
