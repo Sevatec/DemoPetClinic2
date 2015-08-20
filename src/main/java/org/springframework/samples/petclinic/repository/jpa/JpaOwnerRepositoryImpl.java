@@ -65,10 +65,10 @@ public class JpaOwnerRepositoryImpl implements OwnerRepository {
         Query query;
         
         //if(!sqlInjectionTest){
-	    	query = this.em.createQuery("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName LIKE :lastName");
-	        query.setParameter("lastName", lastName + "%");
+	    	//query = this.em.createQuery("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName LIKE :lastName");
+	        //query.setParameter("lastName", lastName + "%");
         //} else {
-        	//query = this.em.createQuery("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName = '"+lastName+"'");
+        	query = this.em.createQuery("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName = '"+lastName+"'");
         //}
         return query.getResultList();
     }
