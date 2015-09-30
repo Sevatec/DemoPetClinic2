@@ -1,8 +1,10 @@
 version: 0.0
-os: linux
+# os: linux
+ os: windows
 files:
    - source: target/petclinic.war
-     destination: /usr/share/tomcat7/webapps
+#     destination: /usr/share/tomcat7/webapps
+	destination: C:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps
 permissions:
    - object: /usr/share/tomcat7/webapps
      pattern: "**"
