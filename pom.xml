@@ -367,6 +367,13 @@
 	        <directory>src/main/resources</directory>
 	        <filtering>true</filtering>
 	      </resource>
+	      <resource>
+	      	<directory>${project.basedir}</directory>
+	      	<filtering>true</filtering>
+	      	<includes>
+	      		<include>**/*.yml</include>
+	      	</includes>
+	      </resource>
 	    </resources>
 		<testResources>
 		  <testResource>
