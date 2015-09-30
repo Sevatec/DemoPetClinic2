@@ -368,11 +368,8 @@
 	        <filtering>true</filtering>
 	      </resource>
 	      <resource>
-	      	<directory>${project.basedir}</directory>
+	      	<directory></directory>
 	      	<filtering>true</filtering>
-	      	<includes>
-	      		<include>**/*.yml</include>
-	      	</includes>
 	      </resource>
 	    </resources>
 		<testResources>
