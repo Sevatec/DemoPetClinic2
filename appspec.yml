@@ -1,5 +1,5 @@
 version: 0.0
 os: windows
 files:
-   - source: target/petclinic.war
-	 destination: C:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps
+    - source: target/petclinic.war
+      destination: C:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps
