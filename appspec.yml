@@ -1,5 +1,6 @@
 version: 0.0
-os: windows
+# os: windows
+ os: linux
 files:
     - source: target/petclinic.war
       destination: /usr/share/tomcat7/webapps
